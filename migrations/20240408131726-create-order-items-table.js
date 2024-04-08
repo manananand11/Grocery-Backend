@@ -28,6 +28,10 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
+      quantity: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
       createdAt: {
         type: Sequelize.DATE,
         allowNull: false,

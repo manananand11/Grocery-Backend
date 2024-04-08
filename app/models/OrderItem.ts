@@ -17,6 +17,9 @@ export class OrderItem extends Model {
   @Column(DataType.BIGINT)
   groceryItemId!: number;
 
+  @Column(DataType.INTEGER)
+  quantity!: number;
+
   @BelongsTo(() => GroceryItem, 'groceryItemId')
   groceryItem!: GroceryItem;
 }
