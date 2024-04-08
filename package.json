@@ -1,0 +1,23 @@
+{
+  "name": "qp-assessment",
+  "version": "1.0.0",
+  "description": "This is an assessment for Question Pro",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && nodemon ./dist/app.js",
+    "dev": "nodemon ./app.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.12.5",
+    "express": "^4.19.2",
+    "mysql": "^2.18.1",
+    "nodemon": "^3.1.0",
+    "ts-node": "^10.9.2",
+    "typeorm": "^0.3.20",
+    "typescript": "^5.4.4"
+  }
+}
