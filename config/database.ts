@@ -1,24 +1,29 @@
-import { Sequelize } from 'sequelize-typescript';
+import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-const sequelize = new Sequelize({
-  database: process.env.DB_NAME!,
-  username: process.env.DB_USER!,
-  password: process.env.DB_PASSWORD!,
-  host: process.env.DB_HOST!,
-  port: parseInt(process.env.DB_PORT!, 10),
-  dialect: 'mysql',
-  models: [__dirname + '/../app/models/*.ts'],
+
+// Database connection parameters
+const database = process.env.DB_NAME!;
+const username = process.env.DB_USER!;
+const password = process.env.DB_PASSWORD!;
+const host = process.env.DB_HOST!; 
+const dialect = 'mysql';
+
+// Initialize Sequelize
+const sequelize = new Sequelize(database, username, password, {
+  host: host,
+  dialect: dialect,
 });
 
-sequelize.authenticate()
+sequelize
+  .authenticate()
   .then(() => {
-    console.log('Connection to the database has been established successfully.');
+    console.log('Connection has been established successfully.');
   })
-  .catch((error) => {
-    console.error('Unable to connect to the database:', error);
+  .catch((err: Error) => {
+    console.error('Unable to connect to the database:', err);
   });
 
 export default sequelize;

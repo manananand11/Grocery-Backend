@@ -1,29 +1,60 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import { Order } from './Order';
-import { GroceryItem } from './GroceryItem';
+import { DataTypes, Model } from 'sequelize';
 import sequelize from '../../config/database';
-import { baseModelAttributes } from './BaseModel';
+import Order from './Order';
+import GroceryItem from './GroceryItem';
 
-@Table({ tableName: 'order_items' })
-export class OrderItem extends Model {
-  @ForeignKey(() => Order)
-  @Column(DataType.BIGINT)
+class OrderItem extends Model {
+  id!: number;
   orderId!: number;
-
-  @BelongsTo(() => Order, 'orderId')
-  order!: Order;
-
-  @ForeignKey(() => GroceryItem)
-  @Column(DataType.BIGINT)
   groceryItemId!: number;
-
-  @Column(DataType.INTEGER)
   quantity!: number;
-
-  @BelongsTo(() => GroceryItem, 'groceryItemId')
-  groceryItem!: GroceryItem;
+  createdAt!: Date;
+  updatedAt!: Date;
 }
 
-OrderItem.init({ ...baseModelAttributes },{ modelName: 'OrderItem', sequelize });
+OrderItem.init({
+  id: {
+    type: DataTypes.BIGINT,
+    primaryKey: true,
+    autoIncrement: true
+  },
+  orderId: {
+    type: DataTypes.BIGINT,
+    allowNull: false,
+    references: {
+      model: Order,
+      key: 'id'
+    }
+  },
+  groceryItemId: {
+    type: DataTypes.BIGINT,
+    allowNull: false,
+    references: {
+      model: GroceryItem,
+      key: 'id'
+    }
+  },
+  quantity: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
+  createdAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW
+  },
+  updatedAt: {
+    type: DataTypes.DATE,
+    allowNull: false,
+    defaultValue: DataTypes.NOW
+  }
+}, {
+  sequelize,
+  modelName: 'OrderItem',
+  tableName: 'order_items'
+});
+
+OrderItem.belongsTo(Order, { foreignKey: 'orderId', as: 'order' });
+OrderItem.belongsTo(GroceryItem, { foreignKey: 'groceryItemId', as: 'groceryItem' });
 
 export default OrderItem;

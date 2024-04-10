@@ -1,24 +1,37 @@
-import { Table, Column, Model, DataType, ForeignKey, BelongsTo } from 'sequelize-typescript';
-import { User } from './User';
+import { DataTypes, Model, Association } from 'sequelize';
 import sequelize from '../../config/database';
-import { baseModelAttributes } from './BaseModel';
+import User from './User';
 
-@Table({ tableName: 'orders' })
-export class Order extends Model {
-  @Column(DataType.DECIMAL(10, 2))
-  amount!: number;
-
-  @ForeignKey(() => User)
-  @Column(DataType.BIGINT)
-  userId!: number;
-
-  @BelongsTo(() => User, 'userId')
-  user!: User;
-
-  @Column(DataType.STRING)
-  status!: string;
+class Order extends Model {
+  public id!: number;
+  public amount!: number;
+  public userId!: number;
+  public status!: string;
+  public readonly user?: User;
 }
 
-Order.init({ ...baseModelAttributes },{ modelName: 'Order', sequelize });
+Order.init(
+  {
+    amount: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+    },
+    userId: {
+      type: DataTypes.BIGINT,
+      allowNull: false,
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    modelName: 'Order',
+    tableName: 'orders'
+  }
+);
+
+Order.belongsTo(User, { foreignKey: 'userId', as: 'user' });
 
 export default Order;
