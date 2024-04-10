@@ -1,14 +1,12 @@
 import express from 'express';
-import authenticate from '../app/middleware/authMiddleware';
-import adminMiddleware from '../app/middleware/adminMiddleware';
+import groceryItemRouter from './../app/routes/groceryItemRouter'
+import orderItemRouter from './../app/routes/orderItemRouter'
+import orderRouter from './../app/routes/orderRouter'
 
 const mainRouter = express.Router();
 
-mainRouter.get('/protected-route',authenticate, (req, res) => {
-  res.json({ message: 'This is a protected route' });
-});
-mainRouter.get('/admin-route',adminMiddleware, (req, res) => {
-  res.json({ message: 'This is an admin protected route' });
-});
+mainRouter.use('/orders', orderRouter);
+mainRouter.use('/order-items', orderItemRouter);
+mainRouter.use('/grocery-items', groceryItemRouter);
 
 export default mainRouter;
