@@ -20,7 +20,17 @@ class GroceryItemController {
       next(error);
     }
   }
-  async getGroceryItemById() {}
+  async getGroceryItemById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const groceryItemId = parseInt(req.params.id, 10);
+      console.log(groceryItemId)
+      const groceryItemService = new GroceryItemService();
+      const groceryItem = await groceryItemService.getGroceryItemById(groceryItemId);
+      res.json(groceryItem);
+    } catch (error) {
+      next(error);
+    }
+  }
   async getAllGroceryItems() {}
   async updateGroceryItem() {}
   async deleteGroceryItem() {}

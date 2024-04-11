@@ -17,6 +17,16 @@ class GroceryItemService{
         });
         return groceryItem;
       }
+      async getGroceryItemById(groceryItemId:number) {
+        const groceryItem = await GroceryItem.findOne({
+          where: { id: groceryItemId},
+        });
+        if (!groceryItem) {
+          throw new Error('Grocery item not found for the menu');
+        }
+        return groceryItem;
+      }
 }
+
 
 export default GroceryItemService;
