@@ -57,7 +57,16 @@ class GroceryItemController {
       next(error);
     }
   }
-  async deleteGroceryItem() {}
+  async deleteGroceryItem(req: Request, res: Response, next: NextFunction) {
+    try {
+      const groceryItemId = parseInt(req.params.id, 10);
+      const groceryItemService = new GroceryItemService();
+      await groceryItemService.deleteGroceryItem(groceryItemId);
+      res.sendStatus(204); // No content
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new GroceryItemController();

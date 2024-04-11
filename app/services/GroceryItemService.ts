@@ -44,6 +44,14 @@ class GroceryItemService{
         await groceryItem.update(updatedFields);
         return groceryItem;
       }
+      async deleteGroceryItem(groceryItemId: number) {
+        const groceryItem = await GroceryItem.findByPk(groceryItemId);
+        if (!groceryItem) {
+          throw new Error('Grocery item not found');
+        }
+        
+        await groceryItem.destroy();
+      }
 }
 
 
