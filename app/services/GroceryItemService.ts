@@ -26,6 +26,10 @@ class GroceryItemService{
         }
         return groceryItem;
       }
+      async getAllGroceryItems() {
+        const allGroceryItems = await GroceryItem.findAll();
+        return allGroceryItems;
+      }
 }
 
 

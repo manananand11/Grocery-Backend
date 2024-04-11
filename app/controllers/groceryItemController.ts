@@ -31,7 +31,15 @@ class GroceryItemController {
       next(error);
     }
   }
-  async getAllGroceryItems() {}
+  async getAllGroceryItems(req: Request, res: Response, next: NextFunction) {
+    try {
+      const groceryItemService = new GroceryItemService();
+      const allGroceryItems = await groceryItemService.getAllGroceryItems();
+      res.json(allGroceryItems);
+    } catch (error) {
+      next(error);
+    }
+  }
   async updateGroceryItem() {}
   async deleteGroceryItem() {}
 }
