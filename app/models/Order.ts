@@ -12,6 +12,11 @@ class Order extends Model {
 
 Order.init(
   {
+    id: {
+      type: DataTypes.BIGINT,
+      primaryKey: true,
+      autoIncrement: true,
+  },
     amount: {
       type: DataTypes.DECIMAL(10, 2),
       allowNull: false,
@@ -28,7 +33,8 @@ Order.init(
   {
     sequelize,
     modelName: 'Order',
-    tableName: 'orders'
+    tableName: 'orders',
+    timestamps:true,
   }
 );
 

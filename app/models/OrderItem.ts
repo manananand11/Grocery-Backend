@@ -38,6 +38,10 @@ OrderItem.init({
     type: DataTypes.INTEGER,
     allowNull: false
   },
+  price: {
+    type: DataTypes.INTEGER,
+    allowNull: false
+  },
   createdAt: {
     type: DataTypes.DATE,
     allowNull: false,
