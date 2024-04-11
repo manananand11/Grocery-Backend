@@ -30,6 +30,20 @@ class GroceryItemService{
         const allGroceryItems = await GroceryItem.findAll();
         return allGroceryItems;
       }
+      async updateGroceryItem(groceryItemId: number, updatedFields: {
+        name?: string,
+        price?: number,
+        quantity?: number,
+        description?: string,
+      }) {
+        const groceryItem = await GroceryItem.findByPk(groceryItemId);
+        if (!groceryItem) {
+          throw new Error('Grocery item not found');
+        }
+        
+        await groceryItem.update(updatedFields);
+        return groceryItem;
+      }
 }
 
 

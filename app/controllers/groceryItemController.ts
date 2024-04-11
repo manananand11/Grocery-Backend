@@ -40,7 +40,23 @@ class GroceryItemController {
       next(error);
     }
   }
-  async updateGroceryItem() {}
+  async updateGroceryItem(req: Request, res: Response, next: NextFunction) {
+    try {
+      const groceryItemId = parseInt(req.params.id, 10);
+      const { name, price, quantity, description } = req.body;
+      
+      const groceryItemService = new GroceryItemService();
+      const updatedGroceryItem = await groceryItemService.updateGroceryItem(groceryItemId, {
+        name,
+        price,
+        quantity,
+        description,
+      });
+      res.json(updatedGroceryItem);
+    } catch (error) {
+      next(error);
+    }
+  }
   async deleteGroceryItem() {}
 }
 
